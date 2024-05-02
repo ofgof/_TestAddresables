@@ -13,7 +13,6 @@ Task("Clean")
 
 Task("BuildAndroid")
     .IsDependentOn("Clean")
-    .IsDependentOn("BuildWindows")
     .Does(() =>
 {
     UnityEditor(2022, 3,
@@ -21,22 +20,10 @@ Task("BuildAndroid")
     {
         BatchMode = true,
         Quit = true,
+        ProjectPath = ".",
         ExecuteMethod = "Builder.BuildAndroid",
         BuildTarget = BuildTarget.Android,
         LogFile = "./artifacts/Android/unity.log"
-    },
-    new UnityEditorSettings
-    {
-        RealTimeLog = true
-    });
-    UnityEditor(2022, 3,
-    new UnityEditorArguments
-    {
-        BatchMode = true,
-        Quit = true,
-        ExecuteMethod = "Builder.BuildWindows",
-        BuildTarget = BuildTarget.Win64,
-        LogFile = "./artifacts/Windows/unity.log"
     },
     new UnityEditorSettings
     {
